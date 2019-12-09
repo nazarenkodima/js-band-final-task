@@ -9,7 +9,7 @@ export const signInReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SIGN_IN_ASYNC:
       return {
-        ...state
+        ...state,
       };
 
     case types.START_FETCHING:
@@ -28,8 +28,8 @@ export const signInReducer = (state = initialState, action) => {
       return {
         ...state,
         user: {
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
 
     default:

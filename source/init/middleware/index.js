@@ -1,6 +1,6 @@
 // Core
 import { applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 // Middleware
 import { createLogger } from 'redux-logger';
 

@@ -5,12 +5,12 @@ import React, { Component } from 'react';
 import { Nav, SignIn } from '../components';
 
 export default class SignInPage extends Component {
-    render () {
-        return (
-            <>
-                <Nav />
-                <SignIn/>
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        <Nav />
+        <SignIn />
+      </>
+    );
+  }
 }

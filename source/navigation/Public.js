@@ -9,14 +9,13 @@ import { SignInPage, FourOFour } from '../pages';
 import { book } from './book';
 
 export default class Public extends Component {
-    render () {
-        return (
-            <Switch>
-                <Redirect exact from='/' to = { book.signIn } />
-                <Route component = { SignInPage } path = { book.signIn } />
-                <Route component= { FourOFour } path='*' exact />
-            </Switch>
-        );
-
-    }
+  render() {
+    return (
+      <Switch>
+        <Redirect exact from="/" to={book.signIn} />
+        <Route component={SignInPage} path={book.signIn} />
+        <Route component={FourOFour} path="*" exact />
+      </Switch>
+    );
+  }
 }
