@@ -13,6 +13,7 @@ import './theme/init.css';
 import App from './navigation/App';
 
 render(
+    // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <Router>
       <App />

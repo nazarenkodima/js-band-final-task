@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form'
 
 // reducers
-import { Reducer } from '../bus/__DOMAIN__/reducer';
+import { signInReducer } from '../bus/signIn/reducer';
 
 // eslint-disable-next-line import/prefer-default-export
 export const rootReducer = combineReducers({
-  Reducer,
+  signInReducer,
   form: formReducer
 });

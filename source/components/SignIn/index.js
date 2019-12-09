@@ -1,41 +1,53 @@
 // Core
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm,  getFormValues, } from 'redux-form'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+// Actions
+import { signInActions } from '../../bus/signIn/actions';
+
+// Styles
 import Styles from './styles.m.css';
 import Avatar from '../../theme/images/userLogo.png';
 
-const required = value => value ? undefined : 'Field is not valid';
+// Validators
+import { required, minLength4, maxLength16, renderField } from '../../bus/validators/validators';
 
-const maxLength = max => value =>
-    value && value.length > max ? `Must be ${max} characters or less` : undefined;
-const maxLength16 = maxLength(16);
+const matStateToProps = (state) => {
+    console.log(state)
+    return {
+    isFetching: state.signInReducer.isFetching,
+    username: getFormValues('signIn')(state),
+    }
+};
 
-const minLength = min => value =>
-    value && value.length < min ? `Must be ${min} characters or more` : undefined;
-const minLength4 = minLength(4);
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(
+            {
+                ...signInActions,
+            },
+            dispatch,
+        ),
+    };
+};
 
-    <div className={Styles}>
-        <label className={Styles.inputLabel}>{label}</label>
-        <div>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <input {...input} placeholder={label} type={type}/>
-            {touched && ((error && <span className={Styles.errorSpan}>{error}</span>) || (warning && <span >{warning}</span>))}
-        </div>
-    </div>
-);
-
+@connect(matStateToProps, mapDispatchToProps)
 class SignIn extends Component{
 
     handleSubmit = (event) => {
-    console.log(event)
+        event.preventDefault();
+
+        const { actions, username } = this.props;
+
+    actions.signInAsync(username);
+
     };
 
     render() {
-
-        const {pristine, submitting, isFetching } = this.props;
+        const {pristine, isFetching } = this.props;
 
         const buttonMessage = isFetching ? 'Loading...' : 'Sign-In';
 
@@ -49,9 +61,10 @@ class SignIn extends Component{
                             name="username" type="text"
                            component={renderField} label="Username"
                            validate={[ required, maxLength16, minLength4 ]}
+
                     />
                     <div>
-                        <button className = { Styles.buttonStyle} disabled={pristine || submitting}type = 'submit'>
+                        <button className = { Styles.buttonStyle} disabled={pristine || isFetching}type = 'submit'>
                         {buttonMessage}
                         </button>
                     </div>

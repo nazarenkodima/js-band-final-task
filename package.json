@@ -22,6 +22,7 @@
     "code:check:rules": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "dependencies": {
+    "@babel/runtime": "^7.7.6",
     "@hot-loader/react-dom": "^16.11.0",
     "bootstrap": "^4.4.1",
     "classnames": "~2.2.6",
@@ -34,7 +35,8 @@
     "react-spring": "^7.2.11",
     "redux": "^4.0.4",
     "redux-form": "^8.2.6",
-    "redux-logger": "3.0.6"
+    "redux-logger": "3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.4",
@@ -42,6 +44,8 @@
     "@babel/plugin-proposal-decorators": "~7.0.0-beta.54",
     "@babel/plugin-proposal-function-bind": "~7.0.0-beta.54",
     "@babel/plugin-proposal-object-rest-spread": "~7.0.0-beta.54",
+    "@babel/plugin-transform-arrow-functions": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/polyfill": "~7.0.0-beta.54",
     "@babel/preset-env": "~7.0.0-beta.54",
     "@babel/preset-react": "~7.0.0-beta.54",
@@ -50,6 +54,7 @@
     "babel-eslint": "~8.2.6",
     "babel-jest": "~23.4.0",
     "babel-loader": "^8.0.6",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-airbnb": "^4.4.0",
     "chalk": "~2.4.1",
     "clean-webpack-plugin": "~0.1.19",
