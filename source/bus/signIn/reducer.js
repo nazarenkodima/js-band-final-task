@@ -3,6 +3,7 @@ import { types } from './types';
 const initialState = {
   isFetching: false,
   user: {},
+  error: {}
 };
 
 export const signInReducer = (state = initialState, action) => {
@@ -10,6 +11,20 @@ export const signInReducer = (state = initialState, action) => {
     case types.SIGN_IN_ASYNC:
       return {
         ...state,
+      };
+
+    case types.SIGN_IN_ASYNC_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+        },
+      };
+
+    case types.SIGN_IN_ASYNC_ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
 
     case types.START_FETCHING:
@@ -22,14 +37,6 @@ export const signInReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-      };
-
-    case types.FILL_USER:
-      return {
-        ...state,
-        user: {
-          ...action.payload,
-        },
       };
 
     default:

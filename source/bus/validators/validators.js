@@ -2,14 +2,14 @@ import React from 'react';
 
 import Styles from '../../components/SignIn/styles.m.css';
 
-const required = value => (value ? undefined : 'Field is not valid');
+const required = value => (value ? undefined : 'Username is required');
 
 const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+  value && value.length > max ? `Field is not valid. Must be ${max} characters or less` : undefined;
 const maxLength16 = maxLength(16);
 
 const minLength = min => value =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
+  value && value.length < min ? `Field is not valid. Must be ${min} characters or more` : undefined;
 const minLength4 = minLength(4);
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (

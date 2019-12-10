@@ -1,6 +1,6 @@
 // Core
 import React, { Component } from 'react';
-import { Field, reduxForm, getFormValues } from 'redux-form';
+import { Field, reduxForm, getFormValues} from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -15,7 +15,6 @@ import Avatar from '../../theme/images/userLogo.png';
 import { required, minLength4, maxLength16, renderField } from '../../bus/validators/validators';
 
 const matStateToProps = state => {
-  console.log(state);
   return {
     isFetching: state.signInReducer.isFetching,
     username: getFormValues('signIn')(state),
@@ -44,7 +43,7 @@ class SignIn extends Component {
   };
 
   render() {
-    const { pristine, isFetching } = this.props;
+    const { pristine, isFetching, invalid } = this.props;
 
     const buttonMessage = isFetching ? 'Loading...' : 'Sign-In';
 
@@ -62,7 +61,7 @@ class SignIn extends Component {
             validate={[required, maxLength16, minLength4]}
           />
           <div>
-            <button className={Styles.buttonStyle} disabled={pristine || isFetching} type="submit">
+            <button className={Styles.buttonStyle} disabled={invalid || isFetching || pristine} type="submit">
               {buttonMessage}
             </button>
           </div>
