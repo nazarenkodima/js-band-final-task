@@ -1,18 +1,13 @@
 import { types } from './types';
 
 const initialState = {
-  isFetching: false,
+  isAuthenticated: false,
   user: {},
   error: {},
 };
 
-export const signInReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SIGN_IN_ASYNC:
-      return {
-        ...state,
-      };
-
     case types.SIGN_IN_ASYNC_SUCCESS:
       return {
         ...state,
@@ -27,16 +22,10 @@ export const signInReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case types.START_FETCHING:
+    case types.AUTHENTICATE:
       return {
         ...state,
-        isFetching: true,
-      };
-
-    case types.STOP_FETCHING:
-      return {
-        ...state,
-        isFetching: false,
+        isAuthenticated: true,
       };
 
     default:

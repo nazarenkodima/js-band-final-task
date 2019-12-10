@@ -1,9 +1,19 @@
 // Actions
 import { types } from './types';
 
+// actions
+import { uiActions } from '../ui/actions';
+
+// API
 import { api } from '../../REST/index';
 
-export const signInActions = {
+export const authActions = {
+  authenticate: () => {
+    return {
+      type: types.AUTHENTICATE,
+    };
+  },
+
   signInAsyncSuccess: user => {
     return {
       type: types.SIGN_IN_ASYNC_SUCCESS,
@@ -19,25 +29,30 @@ export const signInActions = {
   },
 
   signInAsync: username => async dispatch => {
-    dispatch({ type: types.START_FETCHING });
+    dispatch(uiActions.startFetching());
 
     dispatch({ type: types.SIGN_IN_ASYNC });
 
     const response = await api.auth.signin(username);
     const result = await response.json();
 
+    const { token, message } = result;
+
     if (response.status === 200) {
-      dispatch(signInActions.signInAsyncSuccess(result));
+      dispatch(authActions.signInAsyncSuccess(result));
 
-      localStorage.setItem('token', result.token);
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', result.username);
 
-      dispatch({ type: types.STOP_FETCHING });
+      dispatch({ type: types.AUTHENTICATE });
+
+      dispatch(uiActions.stopFetching());
     }
 
     if (response.status === 400) {
-      dispatch(signInActions.signInAsyncError(result.message));
+      dispatch(authActions.signInAsyncError(message));
 
-      dispatch({ type: types.STOP_FETCHING });
+      dispatch(uiActions.stopFetching());
     }
   },
 };

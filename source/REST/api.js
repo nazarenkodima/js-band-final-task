@@ -15,13 +15,15 @@ export const api = {
         body: JSON.stringify(username),
       });
     },
-    authenticate() {
-      return fetch(`${MAIN_URL}/user/login`, {
-        method: 'POST',
+  },
+  books: {
+    fetch() {
+      return fetch(`${MAIN_URL}/books`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${api.token}`,
         },
-        body: JSON.stringify({ token: this.token }),
       });
     },
   },
