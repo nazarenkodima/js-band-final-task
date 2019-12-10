@@ -2,6 +2,7 @@ import { types } from './types';
 
 const initialState = {
   books: [],
+  error: false,
 };
 
 export const booksReducer = (state = initialState, action) => {
