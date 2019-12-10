@@ -1,6 +1,6 @@
 // Core
 import { applyMiddleware, compose } from 'redux';
-
+import thunk from 'redux-thunk';
 // Middleware
 import { createLogger } from 'redux-logger';
 
@@ -20,7 +20,7 @@ const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 // eslint-disable-next-line no-undef
 const composeEnhancers = __DEV__ && devtools ? devtools : compose;
 
-const middleware = [];
+const middleware = [thunk];
 
 // eslint-disable-next-line no-undef
 if (__DEV__) {
