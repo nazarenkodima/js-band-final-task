@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // Actions
-import { signInActions } from '../../bus/signIn/actions';
+import { authActions } from '../../bus/auth/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -16,8 +16,9 @@ import { required, minLength4, maxLength16, renderField } from '../../bus/valida
 
 const matStateToProps = state => {
   return {
-    isFetching: state.signInReducer.isFetching,
+    isFetching: state.uiReducer.isFetching,
     username: getFormValues('signIn')(state),
+    isAuthenticated: state.authReducer.isAuthenticated,
   };
 };
 
@@ -25,7 +26,7 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(
       {
-        ...signInActions,
+        ...authActions,
       },
       dispatch,
     ),
