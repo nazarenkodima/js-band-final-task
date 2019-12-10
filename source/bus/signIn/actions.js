@@ -14,11 +14,11 @@ export const signInActions = {
   signInAsyncError: error => {
     return {
       type: types.SIGN_IN_ASYNC_ERROR,
-      payload: error
+      payload: error,
     };
   },
 
-  signInAsync: username => async (dispatch) => {
+  signInAsync: username => async dispatch => {
     dispatch({ type: types.START_FETCHING });
 
     dispatch({ type: types.SIGN_IN_ASYNC });
@@ -26,7 +26,7 @@ export const signInActions = {
     const response = await api.auth.signin(username);
     const result = await response.json();
 
-    if(response.status === 200) {
+    if (response.status === 200) {
       dispatch(signInActions.signInAsyncSuccess(result));
 
       localStorage.setItem('token', result.token);
@@ -34,12 +34,10 @@ export const signInActions = {
       dispatch({ type: types.STOP_FETCHING });
     }
 
-    if(response.status === 400) {
+    if (response.status === 400) {
       dispatch(signInActions.signInAsyncError(result.message));
 
       dispatch({ type: types.STOP_FETCHING });
     }
-
   },
 };
-

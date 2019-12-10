@@ -1,6 +1,6 @@
 // Core
 import React, { Component } from 'react';
-import { Field, reduxForm, getFormValues} from 'redux-form';
+import { Field, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -61,7 +61,11 @@ class SignIn extends Component {
             validate={[required, maxLength16, minLength4]}
           />
           <div>
-            <button className={Styles.buttonStyle} disabled={invalid || isFetching || pristine} type="submit">
+            <button
+              className={Styles.buttonStyle}
+              disabled={invalid || isFetching || pristine}
+              type="submit"
+            >
               {buttonMessage}
             </button>
           </div>
