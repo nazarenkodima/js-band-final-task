@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+// Components
+import Book from '../Book';
+
 // Actions
 import { booksActions } from '../../bus/books/actions';
 
@@ -13,6 +16,7 @@ const matStateToProps = state => {
   return {
     isFetching: state.uiReducer.isFetching,
     books: state.booksReducer.books,
+    error: state.booksReducer.error,
   };
 };
 
@@ -36,10 +40,26 @@ export default class Books extends Component {
   }
 
   render() {
-    const { books } = this.props;
+    const { books, error } = this.props;
 
-    console.log(books);
+    const booksJSX =
+      error ||
+      books.map(book => {
+        return (
+          <Book
+            key={book.id}
+            cover={book.cover}
+            title={book.title}
+            author={book.author}
+            price={book.price}
+          />
+        );
+      });
 
-    return <section className={Styles} />;
+    return (
+      <div className="container-fluid">
+        <section className={Styles.booklist}>{booksJSX}</section>
+      </div>
+    );
   }
 }
