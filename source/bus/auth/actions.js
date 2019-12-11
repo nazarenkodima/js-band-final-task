@@ -43,6 +43,7 @@ export const authActions = {
 
       localStorage.setItem('token', token);
       localStorage.setItem('username', result.username);
+      localStorage.setItem('avatar', result.avatar);
 
       dispatch({ type: types.AUTHENTICATE });
 
@@ -54,5 +55,13 @@ export const authActions = {
 
       dispatch(uiActions.stopFetching());
     }
+  },
+
+  signOutAsync: () => async dispatch => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('avatar');
+
+    dispatch({ type: types.SIGN_OUT });
   },
 };
