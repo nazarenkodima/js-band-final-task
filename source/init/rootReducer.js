@@ -6,6 +6,7 @@ import { authReducer } from '../bus/auth/reducer';
 import { uiReducer } from '../bus/ui/reducer';
 import { booksReducer } from '../bus/books/reducer';
 import { viewBookReducer } from '../bus/viewBook/reducer';
+import { filtersReducer } from '../bus/filters/reducer';
 
 // eslint-disable-next-line import/prefer-default-export
 export const rootReducer = combineReducers({
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
   uiReducer,
   booksReducer,
   viewBookReducer,
+  filtersReducer,
   form: formReducer,
 });
