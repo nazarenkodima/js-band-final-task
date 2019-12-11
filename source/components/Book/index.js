@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 // Actions
 import { booksActions } from '../../bus/books/actions';
+import { viewBookActions } from '../../bus/viewBook/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -21,6 +23,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         ...booksActions,
+        ...viewBookActions,
       },
       dispatch,
     ),
@@ -29,8 +32,15 @@ const mapDispatchToProps = dispatch => {
 
 @connect(matStateToProps, mapDispatchToProps)
 export default class Book extends Component {
+  // viewBook = () => {
+  //   const {actions, history, id }= this.props;
+  //
+  //   actions.fetchBookAsync(id);
+  //   history.push(`/books/${id}`);
+  // }
+
   render() {
-    const { cover, title, author, price } = this.props;
+    const { cover, title, author, price, id } = this.props;
 
     return (
       <div className={Styles.bookItem}>
@@ -46,9 +56,9 @@ export default class Book extends Component {
 
             <div className={Styles.bookFooter}>
               <p>Price: ${price}</p>
-              <button type="button" className="btn btn-info">
+              <Link to={`books/${id}`} params={id} className="btn btn-info">
                 View
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -26,5 +26,14 @@ export const api = {
         },
       });
     },
+    viewBook(id) {
+      return fetch(`${MAIN_URL}/books/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${api.token}`,
+        },
+      });
+    },
   },
 };
