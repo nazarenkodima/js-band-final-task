@@ -23,7 +23,7 @@ export const booksActions = {
     };
   },
 
-  fetchBookAsync: () => async dispatch => {
+  fetchBooksAsync: () => async dispatch => {
     dispatch(uiActions.startFetching());
     dispatch({ type: types.FETCH_BOOKS_ASYNC });
 
@@ -33,11 +33,14 @@ export const booksActions = {
 
       dispatch(authActions.authenticate());
 
-      if (response.status !== 401) {
+      if (response.status === 200) {
         dispatch(booksActions.fetchBooksAsyncSuccess(result));
       }
+
+      if (response.status === 401) {
+        dispatch(booksActions.fetchBooksAsyncError(result.message));
+      }
     } catch (e) {
-      dispatch(booksActions.fetchBooksAsyncError(e));
       dispatch(uiActions.emitError(e));
     }
 

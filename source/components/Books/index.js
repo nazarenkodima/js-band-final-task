@@ -36,7 +36,7 @@ export default class Books extends Component {
   componentDidMount() {
     const { actions } = this.props;
 
-    actions.fetchBookAsync();
+    actions.fetchBooksAsync();
   }
 
   render() {
@@ -52,6 +52,7 @@ export default class Books extends Component {
             title={book.title}
             author={book.author}
             price={book.price}
+            id={book.id}
           />
         );
       });
