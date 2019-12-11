@@ -4,4 +4,5 @@ export const types = {
   SIGN_IN_ASYNC_ERROR: 'SIGN_IN_ASYNC_ERROR',
 
   AUTHENTICATE: 'AUTHENTICATE',
+  SIGN_OUT: 'SIGN_OUT',
 };

@@ -31,16 +31,13 @@ export const booksActions = {
       const response = await api.books.fetch();
       const result = await response.json();
 
-      const { message } = result;
-
       dispatch(authActions.authenticate());
 
       if (response.status !== 401) {
         dispatch(booksActions.fetchBooksAsyncSuccess(result));
       }
-
-      dispatch(booksActions.fetchBooksAsyncError(message));
     } catch (e) {
+      dispatch(booksActions.fetchBooksAsyncError(e));
       dispatch(uiActions.emitError(e));
     }
 
