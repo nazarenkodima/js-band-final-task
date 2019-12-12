@@ -26,6 +26,7 @@
     "@hot-loader/react-dom": "^16.11.0",
     "bootstrap": "^4.4.1",
     "classnames": "~2.2.6",
+    "lodash": "^4.17.15",
     "normalize.css": "^8.0.1",
     "react": "16.8.3",
     "react-dom": "16.8.1",

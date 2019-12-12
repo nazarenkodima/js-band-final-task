@@ -36,3 +36,11 @@ body {
 
 }
 
+:root {
+    --navHeight: 70px;
+}
+
+.btn-success.disabled, .btn-success:disabled {
+    background-color: lightgray!important;
+    border-color: lightgray!important;
+}
