@@ -5,8 +5,12 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import cx from 'classnames';
 
+// Components
+import PriceWidget from '../PriceWidget';
+
 // Actions
 import { viewBookActions } from '../../bus/viewBook/actions';
+import { counterActions } from '../../bus/counter/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -24,6 +28,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         ...viewBookActions,
+        ...counterActions,
       },
       dispatch,
     ),
@@ -34,11 +39,13 @@ const mapDispatchToProps = dispatch => {
 export default class ViewBook extends Component {
   componentDidMount() {
     const {
+      book: { price },
       actions,
       match: { params },
     } = this.props;
 
     actions.fetchBookAsync(params.id);
+    actions.setTotalPrice(price);
   }
 
   componentWillUnmount() {
@@ -64,7 +71,7 @@ export default class ViewBook extends Component {
     return (
       <section className="container-fluid">
         <div className="row mt-5">
-          <div className="col-sm-9">
+          <div className="col-sm-7">
             <div className={viewBook}>
               <div className="col-sm-12 col-md-5">
                 <div>
@@ -90,7 +97,9 @@ export default class ViewBook extends Component {
               </div>
             </div>
           </div>
-          <div className="col-sm-3" />
+          <div className="col-sm-12 col-md-3">
+            <PriceWidget price={book.price} bookAvailability={book.count} />
+          </div>
         </div>
       </section>
     );
