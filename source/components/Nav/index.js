@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
+
+// Components
+import CartIcon from '../CartIcon';
 
 // Book
 import { book } from '../../navigation/book';
@@ -59,6 +62,9 @@ export default class Nav extends Component {
 
     return isAuthenticated ? (
       <div className={Styles.navEnd}>
+        <NavLink to={book.cart}>
+          <CartIcon width={27} />
+        </NavLink>
         <button type="button" onClick={this.logout}>
           Sign-out
         </button>

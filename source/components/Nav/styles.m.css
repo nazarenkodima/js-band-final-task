@@ -5,7 +5,7 @@
     top: 0;
     align-items: center;
     justify-content: space-between;
-    height: 75px;
+    height: var(--navHeight);
     background-color: var(--paletteColor6);
     padding: 0 10px;
     z-index: 1;
@@ -27,6 +27,10 @@
     & .navEnd {
         display: flex;
         align-items: center;
+
+        & svg {
+            margin-right: 15px;
+        }
     }
 
     & .avatar img {
@@ -68,4 +72,5 @@
         }
 
     }
+
 }
