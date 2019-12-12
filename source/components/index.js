@@ -4,5 +4,6 @@ import SignIn from './SignIn';
 import Books from './Books';
 import Spinner from './Spinner';
 import ViewBook from './ViewBook';
+import PriceWidget from './PriceWidget';
 
-export { Nav, NotFound, SignIn, Books, Spinner, ViewBook };
+export { Nav, NotFound, SignIn, Books, Spinner, ViewBook, PriceWidget };

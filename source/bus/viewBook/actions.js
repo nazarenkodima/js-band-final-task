@@ -3,6 +3,7 @@ import { types } from './types';
 
 // actions
 import { uiActions } from '../ui/actions';
+import { counterActions } from '../counter/actions';
 
 // API
 import { api } from '../../REST/index';
@@ -44,6 +45,8 @@ export const viewBookActions = {
 
       if (response.status === 200) {
         dispatch(viewBookActions.fetchBookAsyncSuccess(result));
+        dispatch(counterActions.setTotalPrice(result.price));
+        dispatch(counterActions.setBookAvailability(result.count));
       }
 
       if (response.status === 401) {

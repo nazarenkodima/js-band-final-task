@@ -56,7 +56,14 @@ export default class Book extends Component {
 
             <div className={Styles.bookFooter}>
               <p>Price: ${price}</p>
-              <Link to={`books/${id}`} params={id} className="btn btn-info">
+              <Link
+                to={`books/${id}`}
+                params={{
+                  id,
+                  price,
+                }}
+                className="btn btn-info"
+              >
                 View
               </Link>
             </div>
