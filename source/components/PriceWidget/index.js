@@ -92,6 +92,8 @@ export default class PriceWidget extends Component {
       totalPrice,
       title,
     });
+
+    actions.booksReadyForPurchase();
   };
 
   render() {

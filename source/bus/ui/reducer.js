@@ -2,6 +2,7 @@ import { types } from './types';
 
 const initialState = {
   isFetching: false,
+  notificationIn: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+      };
+
+    case types.SHOW_NOTIFICATION:
+      return {
+        ...state,
+        notificationIn: action.payload,
       };
 
     default:

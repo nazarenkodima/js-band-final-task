@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import {isEmpty} from 'lodash';
 
 // Components
 import CartIcon from '../CartIcon';
@@ -20,6 +21,7 @@ const matStateToProps = state => {
   return {
     isAuthenticated: state.authReducer.isAuthenticated,
     user: state.authReducer.user,
+    cart: state.cartReducer.cart
   };
 };
 
@@ -58,12 +60,13 @@ export default class Nav extends Component {
 
   getNav = () => {
     const { username, avatar } = this.state;
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, cart } = this.props;
 
     return isAuthenticated ? (
       <div className={Styles.navEnd}>
         <NavLink to={book.cart}>
           <CartIcon width={27} />
+          {!isEmpty(cart) ? <span className={Styles.items}>{cart.length}</span> : null}
         </NavLink>
         <button type="button" onClick={this.logout}>
           Sign-out

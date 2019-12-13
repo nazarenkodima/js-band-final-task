@@ -9,6 +9,7 @@ import cx from 'classnames';
 // Components
 import CartIcon from '../CartIcon';
 import CartItem from '../CartItem';
+import Notification from '../Notification';
 
 // Book
 import { book } from '../../navigation/book';
@@ -16,6 +17,7 @@ import { book } from '../../navigation/book';
 // Actions
 import { viewBookActions } from '../../bus/viewBook/actions';
 import { cartActions } from '../../bus/cart/actions';
+import { uiActions } from '../../bus/ui/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -34,6 +36,7 @@ const mapDispatchToProps = dispatch => {
       {
         ...viewBookActions,
         ...cartActions,
+        ...uiActions,
       },
       dispatch,
     ),
@@ -49,13 +52,25 @@ export default class Cart extends Component {
       const cart = JSON.parse(localStorage.getItem('cart'));
 
       actions.fillCart(cart);
-
+      actions.booksReadyForPurchase();
       actions.getCartTotal();
     }
   }
 
+  componentWillUnmount() {
+    const { actions } = this.props;
+
+    actions.showNotification(false);
+  }
+
+  purchase = () => {
+    const { actions } = this.props;
+
+    actions.purchaseAsync();
+  };
+
   render() {
-    const { cart, cartTotal } = this.props;
+    const { cart, cartTotal, isFetching } = this.props;
 
     const cartPageStyles = cx('container position-relative', [Styles.cart]);
     const cartFullStyles = cx('list-group', [Styles.cartFull]);
@@ -87,7 +102,12 @@ export default class Cart extends Component {
     return (
       <section className={cartPageStyles}>
         <div className={Styles.cartAction}>
-          <button type="button" className="btn btn-sm btn-success" disabled={isEmpty(cart)}>
+          <button
+            type="button"
+            className="btn btn-sm btn-success"
+            disabled={isEmpty(cart) || isFetching}
+            onClick={this.purchase}
+          >
             Purchase
           </button>
         </div>
@@ -95,6 +115,7 @@ export default class Cart extends Component {
         <div className="d-flex justify-content-end mt-2 mr-3">
           Total price: {parseFloat(cartTotal).toFixed(2)}
         </div>
+        <Notification />
       </section>
     );
   }

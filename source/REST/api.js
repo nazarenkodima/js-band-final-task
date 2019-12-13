@@ -36,4 +36,16 @@ export const api = {
       });
     },
   },
+  cart: {
+    purchase(id) {
+      return fetch(`${MAIN_URL}/purchase`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${api.token}`,
+        },
+        body: JSON.stringify(id),
+      });
+    },
+  },
 };
