@@ -7,6 +7,7 @@ import cx from 'classnames';
 
 // Actions
 import { counterActions } from '../../bus/counter/actions';
+import { cartActions } from '../../bus/cart/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -16,6 +17,7 @@ const matStateToProps = state => {
     count: state.counterReducer.count,
     totalPrice: state.counterReducer.totalPrice,
     isInputValid: state.counterReducer.isInputValid,
+    book: state.viewBookReducer.book,
   };
 };
 
@@ -24,6 +26,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         ...counterActions,
+        ...cartActions,
       },
       dispatch,
     ),
@@ -75,6 +78,22 @@ export default class PriceWidget extends Component {
     actions.updateTotalPriceOnBlur(bookCountEntered);
   };
 
+  addToCart = () => {
+    const {
+      actions,
+      book: { id, title },
+      count,
+      totalPrice,
+    } = this.props;
+
+    actions.addBookToCartAsync({
+      id,
+      count,
+      totalPrice,
+      title,
+    });
+  };
+
   render() {
     const { price, count, bookAvailability, totalPrice, isInputValid } = this.props;
 
@@ -121,25 +140,22 @@ export default class PriceWidget extends Component {
             <div> {totalPrice ? totalPrice.toFixed(2) : null}</div>
           </div>
           <div className="d-flex justify-content-end">
-            {isInputValid ? (
-              <button type="button" className="btn btn-info" disabled={!isInputValid}>
+            <div>
+              <button
+                type="button"
+                className="btn btn-info d-flex ml-auto"
+                disabled={!isInputValid}
+                onClick={this.addToCart}
+              >
                 add to cart
               </button>
-            ) : (
-              <div>
-                <button
-                  type="button"
-                  className="btn btn-info d-flex ml-auto"
-                  disabled={!isInputValid}
-                >
-                  add to cart
-                </button>
-                <br />
+              <br />
+              {!isInputValid ? (
                 <span className={Styles.infoMessage}>
                   We have {bookAvailability} books left in stock. Please choose appropriate amount{' '}
                 </span>
-              </div>
-            )}
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

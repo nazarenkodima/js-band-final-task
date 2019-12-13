@@ -3,6 +3,7 @@ import { types } from './types';
 
 // actions
 import { uiActions } from '../ui/actions';
+import { cartActions } from '../cart/actions';
 
 // API
 import { api } from '../../REST/index';
@@ -61,7 +62,9 @@ export const authActions = {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('avatar');
+    localStorage.removeItem('cart');
 
+    dispatch(cartActions.clearCart());
     dispatch({ type: types.SIGN_OUT });
   },
 };
