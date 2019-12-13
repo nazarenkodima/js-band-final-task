@@ -15,6 +15,7 @@ import { book } from '../../navigation/book';
 
 // Actions
 import { viewBookActions } from '../../bus/viewBook/actions';
+import { cartActions } from '../../bus/cart/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -23,6 +24,7 @@ const matStateToProps = state => {
   return {
     isFetching: state.uiReducer.isFetching,
     cart: state.cartReducer.cart,
+    cartTotal: state.cartReducer.cartTotal,
   };
 };
 
@@ -31,6 +33,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         ...viewBookActions,
+        ...cartActions,
       },
       dispatch,
     ),
@@ -39,8 +42,21 @@ const mapDispatchToProps = dispatch => {
 
 @connect(matStateToProps, mapDispatchToProps)
 export default class Cart extends Component {
+  componentDidMount() {
+    const { actions } = this.props;
+
+    if (!isEmpty(localStorage.getItem('cart'))) {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+
+      actions.fillCart(cart);
+
+      actions.getCartTotal();
+    }
+  }
+
   render() {
-    const { cart } = this.props;
+    const { cart, cartTotal } = this.props;
+
     const cartPageStyles = cx('container position-relative', [Styles.cart]);
     const cartFullStyles = cx('list-group', [Styles.cartFull]);
 
@@ -55,11 +71,18 @@ export default class Cart extends Component {
       </div>
     );
 
-    const cartJSX = (
-      <ul className={cartFullStyles}>
-        <CartItem />
-      </ul>
-    );
+    const cartListJSX = cart.map(cartItem => {
+      return (
+        <CartItem
+          key={cartItem.id}
+          totalPrice={cartItem.totalPrice}
+          count={cartItem.count}
+          title={cartItem.title}
+        />
+      );
+    });
+
+    const cartJSX = <ul className={cartFullStyles}>{cartListJSX}</ul>;
 
     return (
       <section className={cartPageStyles}>
@@ -69,6 +92,9 @@ export default class Cart extends Component {
           </button>
         </div>
         {isEmpty(cart) ? cartEmptyJSX : cartJSX}
+        <div className="d-flex justify-content-end mt-2 mr-3">
+          Total price: {parseFloat(cartTotal).toFixed(2)}
+        </div>
       </section>
     );
   }
