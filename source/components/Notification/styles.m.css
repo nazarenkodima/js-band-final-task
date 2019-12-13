@@ -1,0 +1,18 @@
+.notification {
+    display: flex;
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    width: 250px;
+    padding: 10px 5px;
+    border: 1px solid var(--paletteColor5);
+    border-radius: 5px;
+    background-color: var(--paletteColor2);
+    z-index: 100;
+
+    & span {
+        display: inline-flex;
+    }
+}

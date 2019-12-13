@@ -20,4 +20,10 @@ export const uiActions = {
       meta,
     };
   },
+  showNotification: notificationIn => {
+    return {
+      type: types.SHOW_NOTIFICATION,
+      payload: notificationIn,
+    };
+  },
 };

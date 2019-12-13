@@ -1,3 +1,5 @@
+import { map } from 'lodash';
+
 import { types } from './types';
 
 const initialState = {
@@ -53,6 +55,26 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartTotal: action.payload,
+      };
+
+    case types.BOOKS_READY_FOR_PURCHASE:
+      return {
+        ...state,
+        idArray: {
+          books: map(state.cart, 'id'),
+        },
+      };
+
+    case types.PURCHASE_ASYNC_SUCCESS:
+      return {
+        ...state,
+        successMessage: action.payload,
+      };
+
+    case types.PURCHASE_ASYNC_FAILURE:
+      return {
+        ...state,
+        failMessage: action.payload,
       };
 
     default:
