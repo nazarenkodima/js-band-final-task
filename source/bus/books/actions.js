@@ -23,6 +23,12 @@ export const booksActions = {
     };
   },
 
+  resetError: () => {
+    return {
+      type: types.RESET_ERROR,
+    };
+  },
+
   fetchBooksAsync: () => async dispatch => {
     dispatch(uiActions.startFetching());
     dispatch({ type: types.FETCH_BOOKS_ASYNC });
@@ -39,6 +45,7 @@ export const booksActions = {
 
       if (response.status === 401) {
         dispatch(booksActions.fetchBooksAsyncError(result.message));
+        dispatch(uiActions.showNotification(true));
       }
     } catch (e) {
       dispatch(uiActions.emitError(e));
