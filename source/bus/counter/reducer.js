@@ -13,7 +13,7 @@ export const counterReducer = (state = initialState, action) => {
     case types.INCREMENT:
       return {
         ...state,
-        count: Math.min(state.booksAvailability, state.count + 1),
+        count: state.count + 1,
       };
 
     case types.DECREMENT:
