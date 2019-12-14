@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, NavLink } from 'react-router-dom';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
 // Components
 import CartIcon from '../CartIcon';
@@ -21,7 +21,7 @@ const matStateToProps = state => {
   return {
     isAuthenticated: state.authReducer.isAuthenticated,
     user: state.authReducer.user,
-    cart: state.cartReducer.cart
+    cart: state.cartReducer.cart,
   };
 };
 

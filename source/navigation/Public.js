@@ -12,8 +12,8 @@ export default class Public extends Component {
   render() {
     return (
       <Switch>
-        <Redirect exact from="/" to={book.signIn} />
         <Route component={SignInPage} path={book.signIn} />
+        <Redirect exact from="/" to={book.signIn} />
         <Route component={FourOFour} path="*" exact />
       </Switch>
     );

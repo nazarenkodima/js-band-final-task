@@ -32,13 +32,6 @@ const mapDispatchToProps = dispatch => {
 
 @connect(matStateToProps, mapDispatchToProps)
 export default class Book extends Component {
-  // viewBook = () => {
-  //   const {actions, history, id }= this.props;
-  //
-  //   actions.fetchBookAsync(id);
-  //   history.push(`/books/${id}`);
-  // }
-
   render() {
     const { cover, title, author, price, id } = this.props;
 
