@@ -1,0 +1,14 @@
+.title {
+    width: 35vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+@media (--phoneLandscape) {
+    .title {
+        width: 270px;
+    }
+}

@@ -1,0 +1,47 @@
+@font-face {
+    font-family: Hela;
+    src: url('../../theme/fonts/HelaBasicGX.ttf');
+}
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--paletteColor3);
+    padding: 42px;
+
+
+}
+
+h1.numbers {
+    font-family: Hela;
+    font-variation-settings: "wght" 900;
+    animation: weight infinite 2s;
+}
+
+h2.title {
+    font-family: Hela;
+    font-variation-settings: "wght" 100;
+    animation: weight alternate-reverse infinite 2s;
+}
+
+@keyframes weight {
+    0% {
+        font-variation-settings: "wght" 100;    }
+
+    25% {
+        font-variation-settings: "wght" 300;    }
+
+    50% {
+        font-variation-settings: "wght" 500;    }
+
+    65% {
+        font-variation-settings: "wght" 600;    }
+
+    75% {
+        font-variation-settings: "wght" 700;    }
+
+    100% {
+        font-variation-settings: "wght" 900;    }
+}

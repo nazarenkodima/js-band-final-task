@@ -4,6 +4,8 @@ module.exports = {
   rules: {
     "react/prop-types": 0,
     "consistent-return": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": "off"
   }
 };

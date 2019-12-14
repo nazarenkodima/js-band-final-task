@@ -1,0 +1,20 @@
+.cartEmpty {
+    min-height: calc(100vh - var(--navHeight));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.cartAction {
+    position: absolute;
+    top: 25px;
+    right: 17px;
+}
+
+
+.cartFull {
+    margin-top: 100px;
+}
