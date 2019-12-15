@@ -18,6 +18,7 @@ const matStateToProps = state => {
     totalPrice: state.counterReducer.totalPrice,
     isInputValid: state.counterReducer.isInputValid,
     book: state.viewBookReducer.book,
+    isBooksAvailabilityMax: state.counterReducer.isBooksAvailabilityMax,
   };
 };
 
@@ -49,6 +50,8 @@ export default class PriceWidget extends Component {
     const incrementCount = count + 1;
     // eslint-disable-next-line no-unused-expressions
     incrementCount > bookAvailability ? actions.isInputValid(false) : null;
+    // eslint-disable-next-line no-unused-expressions
+    incrementCount === bookAvailability ? actions.isBooksAvailabilityMax(true) : null;
 
     actions.increment();
     actions.updateTotalPrice(price);
@@ -61,14 +64,21 @@ export default class PriceWidget extends Component {
     // eslint-disable-next-line no-unused-expressions
     decrementCount <= bookAvailability ? actions.isInputValid(true) : null;
 
+    // eslint-disable-next-line no-unused-expressions
+    decrementCount < bookAvailability ? actions.isBooksAvailabilityMax(false) : null;
+
     actions.decrement();
     actions.updateTotalPrice(price);
   };
 
   handleInputChange = event => {
-    const { actions } = this.props;
+    const { actions, count, bookAvailability } = this.props;
 
     actions.setCount(event.target.value);
+
+    const incrementCount = count + 1;
+    // eslint-disable-next-line no-unused-expressions
+    incrementCount > bookAvailability ? actions.isBooksAvailabilityMax(false) : null;
   };
 
   handleFocus = () => {
@@ -107,7 +117,14 @@ export default class PriceWidget extends Component {
   };
 
   render() {
-    const { price, count, bookAvailability, totalPrice, isInputValid } = this.props;
+    const {
+      price,
+      count,
+      bookAvailability,
+      totalPrice,
+      isInputValid,
+      isBooksAvailabilityMax,
+    } = this.props;
 
     const widget = cx('card bg-light mb-3 border-0', [Styles.widget]);
     const field = cx('mb-3', [Styles.field]);
@@ -131,13 +148,23 @@ export default class PriceWidget extends Component {
                 onChange={this.handleInputChange}
               />
               <div className="d-flex flex-column">
-                <button type="button" className={Styles.actionButton} onClick={this.increment}>
+                <button
+                  type="button"
+                  className={Styles.actionButton}
+                  onClick={this.increment}
+                  disabled={count >= bookAvailability}
+                >
                   <span role="img" aria-label="up">
                     {' '}
                     🔼
                   </span>
                 </button>
-                <button type="button" className={Styles.actionButton} onClick={this.decrement}>
+                <button
+                  type="button"
+                  className={Styles.actionButton}
+                  onClick={this.decrement}
+                  disabled={count === 1}
+                >
                   <span role="img" aria-label="down">
                     🔽
                   </span>
@@ -163,6 +190,11 @@ export default class PriceWidget extends Component {
               {!isInputValid ? (
                 <span className={Styles.infoMessage}>
                   We have {bookAvailability} books left in stock. Please choose appropriate amount{' '}
+                </span>
+              ) : null}
+              {isBooksAvailabilityMax ? (
+                <span className={Styles.showBooksAvailability}>
+                  We have only {bookAvailability} books left in stock.
                 </span>
               ) : null}
             </div>

@@ -5,4 +5,5 @@ export const types = {
 
   CLEAR_BOOK: 'CLEAR_BOOK',
   VIEW_BOOK: 'VIEW_BOOK',
+  RESET_ERROR: 'RESET_ERROR',
 };

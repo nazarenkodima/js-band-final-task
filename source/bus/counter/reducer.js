@@ -6,6 +6,7 @@ const initialState = {
   booksAvailability: null,
   bookPrice: null,
   isInputValid: true,
+  isBooksAvailabilityMax: false,
 };
 
 export const counterReducer = (state = initialState, action) => {
@@ -13,7 +14,7 @@ export const counterReducer = (state = initialState, action) => {
     case types.INCREMENT:
       return {
         ...state,
-        count: state.count + 1,
+        count: Math.min(state.booksAvailability, state.count + 1),
       };
 
     case types.DECREMENT:
@@ -38,6 +39,12 @@ export const counterReducer = (state = initialState, action) => {
       return {
         ...state,
         booksAvailability: action.payload,
+      };
+
+    case types.IS_BOOKS_AVAILABILITY_MAX:
+      return {
+        ...state,
+        isBooksAvailabilityMax: action.payload,
       };
 
     case types.SET_COUNT:
