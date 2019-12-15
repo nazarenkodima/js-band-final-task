@@ -74,7 +74,9 @@ export default class PriceWidget extends Component {
   handleInputChange = event => {
     const { actions, count, bookAvailability } = this.props;
 
-    actions.setCount(event.target.value);
+    const setCount = event.target.validity.valid ? event.target.value : 1;
+
+    actions.setCount(setCount);
 
     const incrementCount = count + 1;
     // eslint-disable-next-line no-unused-expressions
@@ -140,8 +142,9 @@ export default class PriceWidget extends Component {
             <div>Count</div>
             <div className="d-flex align-items-center">
               <input
-                type="number"
+                type="text"
                 pattern="[0-9]*"
+                maxLength={2}
                 value={count}
                 onBlur={this.handleBlur}
                 onFocus={this.handleFocus}
