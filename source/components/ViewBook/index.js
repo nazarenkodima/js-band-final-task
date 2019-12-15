@@ -14,6 +14,7 @@ import { counterActions } from '../../bus/counter/actions';
 
 // Styles
 import Styles from './styles.m.css';
+import Notification from '../Notification';
 
 const matStateToProps = state => {
   return {
@@ -101,6 +102,7 @@ export default class ViewBook extends Component {
             <PriceWidget price={book.price} bookAvailability={book.count} />
           </div>
         </div>
+        <Notification />
       </section>
     );
   }
