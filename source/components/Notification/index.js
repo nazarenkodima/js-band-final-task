@@ -34,6 +34,11 @@ const mapDispatchToProps = dispatch => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Notification extends Component {
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.showNotification(false);
+  }
+
   animateNotificationEnter = notification => {
     gsap.fromTo(notification, 1, { y: -400, x: '0' }, { y: 100, x: '0' });
   };
