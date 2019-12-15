@@ -12,18 +12,20 @@ const minLength = min => value =>
   value && value.length < min ? `Field is not valid. Must be ${min} characters or more` : undefined;
 const minLength4 = minLength(4);
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div className={Styles}>
-    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-    <label className={Styles.inputLabel}>{label}</label>
-    <div>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <input {...input} placeholder={label} type={type} />
-      {touched &&
-        ((error && <span className={Styles.errorSpan}>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => {
+  return (
+    <div className={Styles}>
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label className={Styles.inputLabel}>{label}</label>
+      <div>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading,jsx-a11y/no-autofocus */}
+        <input {...input} placeholder={label} type={type} autoFocus />
+        {touched &&
+          ((error && <span className={Styles.errorSpan}>{error}</span>) ||
+            (warning && <span>{warning}</span>))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export { required, maxLength16, minLength4, renderField };
