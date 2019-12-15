@@ -25,6 +25,12 @@ export const viewBookReducer = (state = initialState, action) => {
         book: {},
       };
 
+    case types.RESET_ERROR:
+      return {
+        ...state,
+        error: false,
+      };
+
     default:
       return state;
   }

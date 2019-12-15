@@ -35,6 +35,12 @@ export const viewBookActions = {
     };
   },
 
+  resetError: () => {
+    return {
+      type: types.RESET_ERROR,
+    };
+  },
+
   fetchBookAsync: id => async dispatch => {
     dispatch(uiActions.startFetching());
     dispatch({ type: types.FETCH_BOOK_ASYNC });

@@ -23,6 +23,11 @@
         color: indianred;
     }
 
+    & .showBooksAvailability {
+        font-size: 11px;
+        color: lightseagreen;
+    }
+
 }
 
 

@@ -30,6 +30,12 @@ export const counterActions = {
       payload: count,
     };
   },
+  isBooksAvailabilityMax: warning => {
+    return {
+      type: types.IS_BOOKS_AVAILABILITY_MAX,
+      payload: warning,
+    };
+  },
   updateTotalPrice: price => {
     return {
       type: types.UPDATE_TOTAL_PRICE,
