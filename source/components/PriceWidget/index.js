@@ -44,13 +44,23 @@ export default class PriceWidget extends Component {
   }
 
   increment = () => {
-    const { actions, price } = this.props;
+    const { actions, price, count, bookAvailability } = this.props;
+
+    const incrementCount = count + 1;
+    // eslint-disable-next-line no-unused-expressions
+    incrementCount > bookAvailability ? actions.isInputValid(false) : null;
+
     actions.increment();
     actions.updateTotalPrice(price);
   };
 
   decrement = () => {
-    const { actions, price } = this.props;
+    const { actions, price, count, bookAvailability } = this.props;
+
+    const decrementCount = count - 1;
+    // eslint-disable-next-line no-unused-expressions
+    decrementCount <= bookAvailability ? actions.isInputValid(true) : null;
+
     actions.decrement();
     actions.updateTotalPrice(price);
   };
@@ -116,8 +126,6 @@ export default class PriceWidget extends Component {
                 type="number"
                 pattern="[0-9]*"
                 value={count}
-                min="1"
-                max={bookAvailability}
                 onBlur={this.handleBlur}
                 onFocus={this.handleFocus}
                 onChange={this.handleInputChange}

@@ -57,12 +57,6 @@ export default class Cart extends Component {
     }
   }
 
-  componentWillUnmount() {
-    const { actions } = this.props;
-
-    actions.showNotification(false);
-  }
-
   purchase = () => {
     const { actions } = this.props;
 

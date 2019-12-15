@@ -19,6 +19,12 @@ export const booksReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
+    case types.RESET_ERROR:
+      return {
+        ...state,
+        error: false,
+      };
+
     default:
       return state;
   }
