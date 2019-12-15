@@ -11,6 +11,8 @@ import PriceWidget from '../PriceWidget';
 // Actions
 import { viewBookActions } from '../../bus/viewBook/actions';
 import { counterActions } from '../../bus/counter/actions';
+import { authActions } from '../../bus/auth/actions';
+import { uiActions } from '../../bus/ui/actions';
 
 // Styles
 import Styles from './styles.m.css';
@@ -30,6 +32,8 @@ const mapDispatchToProps = dispatch => {
       {
         ...viewBookActions,
         ...counterActions,
+        ...authActions,
+        ...uiActions,
       },
       dispatch,
     ),
@@ -52,13 +56,24 @@ export default class ViewBook extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
 
+    actions.isBooksAvailabilityMax(false);
+    actions.showNotification(false);
     actions.clearBook();
+    actions.resetError();
   }
+
+  goBackToSignIn = () => {
+    const { history, actions } = this.props;
+
+    actions.signOutAsync();
+    history.push('/');
+  };
 
   render() {
     const {
       book,
       book: { tags },
+      error,
     } = this.props;
 
     const viewBook = cx('row', [Styles.viewBook]);
@@ -69,40 +84,58 @@ export default class ViewBook extends Component {
         })
       : null;
 
+    const errorJSX = error ? (
+      <div className="mt-5 row">
+        <Notification />
+        <p className="d-flex align-items-center m-auto">
+          Please, start from{' '}
+          <button type="button" className="btn btn-link" onClick={this.goBackToSignIn}>
+            Sign-in{' '}
+          </button>
+        </p>
+      </div>
+    ) : null;
+
     return (
       <section className="container-fluid">
-        <div className="row mt-5">
-          <div className="col-sm-7">
-            <div className={viewBook}>
-              <div className="col-sm-12 col-md-5">
-                <div>
-                  <figure className={Styles.image}>
-                    <img src={book.cover} alt={book.title} />
-                  </figure>
-                  <div className={Styles.description}>
-                    Book description:<span>{book.description}</span>
+        {!error ? (
+          <>
+            <div className="row mt-5">
+              <div className="col-sm-7">
+                <div className={viewBook}>
+                  <div className="col-sm-12 col-md-5">
+                    <div>
+                      <figure className={Styles.image}>
+                        <img src={book.cover} alt={book.title} />
+                      </figure>
+                      <div className={Styles.description}>
+                        Book description:<span>{book.description}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-md-6">
+                    <div className={Styles.info}>
+                      Title: <span>{book.title}</span>
+                    </div>
+                    <div className={Styles.info}>
+                      Author: <span>{book.author}</span>
+                    </div>
+                    <div className={Styles.info}>
+                      Level: <span>{book.level}</span>
+                    </div>
+                    <div className={Styles.info}>Tags: {tagJSX}</div>
                   </div>
                 </div>
               </div>
-              <div className="col-sm-12 col-md-6">
-                <div className={Styles.info}>
-                  Title: <span>{book.title}</span>
-                </div>
-                <div className={Styles.info}>
-                  Author: <span>{book.author}</span>
-                </div>
-                <div className={Styles.info}>
-                  Level: <span>{book.level}</span>
-                </div>
-                <div className={Styles.info}>Tags: {tagJSX}</div>
+              <div className="col-sm-12 col-md-3">
+                <PriceWidget price={book.price} bookAvailability={book.count} />
               </div>
             </div>
-          </div>
-          <div className="col-sm-12 col-md-3">
-            <PriceWidget price={book.price} bookAvailability={book.count} />
-          </div>
-        </div>
-        <Notification />
+            <Notification />
+          </>
+        ) : (
+          <>{errorJSX}</>
+        )}
       </section>
     );
   }
