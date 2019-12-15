@@ -44,3 +44,8 @@ body {
     background-color: lightgray!important;
     border-color: lightgray!important;
 }
+
+@font-face {
+    font-family: Hela;
+    src: url('fonts/HelaBasicGX.ttf');
+}

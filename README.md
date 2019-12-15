@@ -9,7 +9,7 @@ Clone this repo and then in command line type:
 To launch app run `npm run start` or `yarn start` 
 
 
-gh-pages link → [js-band-hw--final-task](https://nazarenkodima.github.io/js-band-hw-final-task/index.html)
+gh-pages link → [JS BAND STORE](https://nazarenkodima.github.io/js-band-final-task)
 
 
 ### Project commands

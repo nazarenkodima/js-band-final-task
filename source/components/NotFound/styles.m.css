@@ -1,7 +1,4 @@
-@font-face {
-    font-family: Hela;
-    src: url('../../theme/fonts/HelaBasicGX.ttf');
-}
+
 .notFound {
     display: flex;
     flex-direction: column;
