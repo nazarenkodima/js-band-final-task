@@ -65,6 +65,9 @@ export default class PriceWidget extends Component {
     decrementCount <= bookAvailability ? actions.isInputValid(true) : null;
 
     // eslint-disable-next-line no-unused-expressions
+    decrementCount === bookAvailability ? actions.isBooksAvailabilityMax(true) : null;
+
+    // eslint-disable-next-line no-unused-expressions
     decrementCount < bookAvailability ? actions.isBooksAvailabilityMax(false) : null;
 
     actions.decrement();
@@ -75,6 +78,9 @@ export default class PriceWidget extends Component {
     const { actions, count, bookAvailability } = this.props;
 
     const setCount = event.target.validity.valid ? event.target.value : 1;
+
+    // eslint-disable-next-line no-unused-expressions
+    event.target.value <= bookAvailability ? actions.isInputValid(true) : null;
 
     actions.setCount(setCount);
 
@@ -184,7 +190,7 @@ export default class PriceWidget extends Component {
               <button
                 type="button"
                 className="btn btn-info d-flex ml-auto"
-                disabled={!isInputValid}
+                disabled={!isInputValid || !count}
                 onClick={this.addToCart}
               >
                 add to cart
