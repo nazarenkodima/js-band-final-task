@@ -38,13 +38,13 @@ class SignIn extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const { actions, username } = this.props;
+    const { actions, username, valid } = this.props;
 
-    actions.signInAsync(username);
+    if (valid) actions.signInAsync(username);
   };
 
   render() {
-    const { pristine, isFetching, invalid } = this.props;
+    const { isFetching } = this.props;
 
     const buttonMessage = isFetching ? 'Loading...' : 'Sign-In';
 
@@ -62,11 +62,7 @@ class SignIn extends Component {
             validate={[required, maxLength16, minLength4]}
           />
           <div>
-            <button
-              className={Styles.buttonStyle}
-              disabled={invalid || isFetching || pristine}
-              type="submit"
-            >
+            <button className={Styles.buttonStyle} disabled={isFetching} type="submit">
               {buttonMessage}
             </button>
           </div>
@@ -76,9 +72,6 @@ class SignIn extends Component {
   }
 }
 
-// eslint-disable-next-line no-class-assign
-SignIn = reduxForm({
+export default reduxForm({
   form: 'signIn',
 })(SignIn);
-
-export default SignIn;
