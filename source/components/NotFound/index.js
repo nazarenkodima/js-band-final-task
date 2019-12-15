@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { book } from '../../navigation/book';
 
 import Styles from './styles.m.css';
+import '../../theme/fonts/HelaBasicGX.ttf';
 
 const NotFound = () => {
   return (

@@ -15,9 +15,9 @@ export const loadFonts = () => ({
                 test:    /\.eot|ttf|woff2?(\?v=\d+\.\d+\.\d+)?$/,
                 include: source,
                 use:     {
-                    loader:  'file-loader',
+                    loader:  'url-loader',
                     options: {
-                        name: 'fonts/[name].[hash:5].[ext]',
+                        name: 'fonts/[name].[ext]',
                     },
                 },
             }
