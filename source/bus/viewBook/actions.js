@@ -51,6 +51,7 @@ export const viewBookActions = {
 
       if (response.status === 401) {
         dispatch(viewBookActions.fetchBookAsyncError(result.message));
+        dispatch(uiActions.showNotification(true));
       }
     } catch (e) {
       dispatch(viewBookActions.fetchBookAsyncError(e));
