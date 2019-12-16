@@ -150,6 +150,7 @@ export default class PriceWidget extends Component {
               <input
                 type="text"
                 pattern="[0-9]*"
+                readOnly
                 maxLength={2}
                 value={count}
                 onBlur={this.handleBlur}
